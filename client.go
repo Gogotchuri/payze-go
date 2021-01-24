@@ -12,14 +12,16 @@ import (
 	"sync"
 )
 
-// Client represents a PayZe REST API Client
+/** Client represents a PayZe REST API Client */
 type Client struct {
 	sync.Mutex
-	Client         *http.Client
-	ClientID       string
-	Secret         string
-	APIBase        string
-	Log            io.Writer // If user sets log file logs will go there
+	Client   *http.Client
+	ClientID string
+	Secret   string
+	APIBase  string
+	Log      io.Writer // If user sets log file logs will go there
+	//Default callbacks are used in case callbacks arent passed for each request data
+	DefaultCallbacks Callbacks
 }
 
 /** NewClient returns new Client struct APIBase is a base API URL*/
@@ -47,8 +49,8 @@ func (c *Client) SetLog(log io.Writer) {
 }
 
 /** Send makes a request to the API, the response body will be unmarshalled into v,
-	which should be correct struct for the given request body passed by reference or
-	it can be an io.Writer, in which case the response bytes will be written to it */
+which should be correct struct for the given request body passed by reference or
+it can be an io.Writer, in which case the response bytes will be written to it */
 func (c *Client) Send(req *http.Request, v interface{}) error {
 	var (
 		err  error
@@ -63,18 +65,18 @@ func (c *Client) Send(req *http.Request, v interface{}) error {
 	resp, err = c.Client.Do(req)
 	c.log(req, resp)
 
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		data, err = ioutil.ReadAll(resp.Body)
 		errResp := &ErrorResponse{Response: resp, Data: data}
-		//TODO Cant unmarshall yet
-		//if err == nil && len(data) > 0 {
-		//	json.Unmarshal(data, errResp)
-		//}
-
+		if err == nil && len(data) > 0 {
+			err = json.Unmarshal(data, errResp)
+		}
 		return errResp
 	}
 	if v == nil {
@@ -89,7 +91,6 @@ func (c *Client) Send(req *http.Request, v interface{}) error {
 	return json.NewDecoder(resp.Body).Decode(v)
 }
 
-
 /** NewRequest constructs a new http.Request, Marshal payload to json bytes */
 func (c *Client) NewRequest(method, url string, payload interface{}) (*http.Request, error) {
 	var buf io.Reader
@@ -101,6 +102,16 @@ func (c *Client) NewRequest(method, url string, payload interface{}) (*http.Requ
 		buf = bytes.NewBuffer(b)
 	}
 	return http.NewRequest(method, url, buf)
+}
+
+/**CreateRequestPayload Create proper payload for PayZe request*/
+func (c *Client) CreateRequestPayload(action string, data interface{}) PayZeRequest {
+	return PayZeRequest{
+		Method:    action,
+		APIKey:    c.ClientID,
+		APISecret: c.Secret,
+		Data:      data,
+	}
 }
 
 /** log will dump request and response to the log destination */
