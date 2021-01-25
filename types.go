@@ -40,11 +40,36 @@ type SplitParticipant struct {
 	PayIn  int     `json:"payIn"`
 }
 
+/**SplitInfo is an entry of splits array returned during action: GetTransactionInfo*/
+type SplitInfo struct {
+	IBan   string  `json:"iban"`
+	Amount float64 `json:"amount,string"`
+	Status string 	`json:"status,omitempty"`
+	//CashOutOrder string `json:"cashOutOrder,omitempty"`
+}
+
+/**LogEntry is an entry of logs array returned during action: GetTransactionInfo*/
+type LogEntry struct {
+	Date string `json:"date"`//TODO for future parse dates
+	StatusBefore string `json:"statusBefore"`
+	Status string `json:"status"`
+	ChangeType string `json:"changeType"`
+}
+
 /**ResponseField response part of PayZe general requests*/
 type ResponseField struct {
 	CardID         string `json:"cardId,omitempty"`
 	TransactionUrl string `json:"transactionUrl,omitempty"`
 	TransactionID  string `json:"transactionId,omitempty"`
+}
+
+/**ResponseField response part of PayZe general requests*/
+type TransactionResponseField struct {
+	CardMask         string `json:"cardMask,omitempty"`
+	Amount			 float64 `json:"amount,omitempty"`
+	Splits			 []SplitInfo `json:"splits,omitempty"`
+	Log  			 []LogEntry `json:"log,omitempty"`
+	Err 			 string `json:"error,omitempty"`
 }
 
 /**PayZeResponse PayZe general response structure*/
@@ -54,6 +79,15 @@ type PayZeResponse struct {
 	Action    string        `json:"action"`
 	CreatedAt string        `json:"createdDate"`
 	Response  ResponseField `json:"response"`
+}
+
+/**PayZeTransactionInfoResponse PayZe response structure of transaction info*/
+type PayZeTransactionInfoResponse struct {
+	ID        int64         `json:"id"`
+	Status    string        `json:"status"`
+	Action    string        `json:"action"`
+	CreatedAt string        `json:"createdDate"`
+	Response  TransactionResponseField `json:"response"`
 }
 
 type ErrorResponse struct {

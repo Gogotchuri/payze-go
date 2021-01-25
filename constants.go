@@ -19,6 +19,23 @@ const (
 	CommitTransaction   = "commit"
 )
 
+//Transaction Statuses
+const (
+	TransactionBlocked = "Blocked"
+	TransactionCardAdded = "CardAdded"
+	TransactionCardAddedForSubscription = "CardAddedForSubscription"
+	TransactionCommitFailed = "CommitFailed"
+	TransactionCommitted = "Committed"
+	TransactionCreated = "Created"
+	TransactionNothing = "Nothing"
+	TransactionError = "Error"
+	TransactionPlatformReceived = "PlatformReceived"
+	TransactionRefunded = "Refunded"
+	TransactionRefundedPartially = "RefundedPartially"
+	TransactionRejected = "Rejected"
+	TransactionTimeout= "Timeout"
+)
+
 //Currencies
 const (
 	GEL = "GEL"

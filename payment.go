@@ -49,9 +49,21 @@ func (c *Client) PayWithCardAndSplit() {
 
 }
 
-func (c *Client) GetTransactionInfo() {
-	panic("Not implemented")
+func (c *Client) GetTransactionInfo(transactionID string) (*PayZeTransactionInfoResponse, error){
+	transIDT := struct {
+		TransactionID string `json:"transactionId"`
+	}{ TransactionID: transactionID }
 
+	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase, c.CreateRequestPayload(TransactionInfo, transIDT))
+	if err != nil {
+		return nil, err
+	}
+	resp := &PayZeTransactionInfoResponse{}
+	err = c.Send(req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 func (c *Client) RefundTransaction() {
