@@ -6,8 +6,8 @@ import (
 )
 
 type Callbacks struct {
-	CallbackSuccess string `json:"callbackError,omitempty"`
-	CallbackFail    string `json:"callback,omitempty"`
+	CallbackSuccess string `json:"callback,omitempty"`
+	CallbackFail string `json:"callbackError,omitempty"`
 }
 
 /**PayZeRequest PayZe general request structure*/
@@ -70,6 +70,18 @@ type TransactionResponseField struct {
 	Splits			 []SplitInfo `json:"splits,omitempty"`
 	Log  			 []LogEntry `json:"log,omitempty"`
 	Err 			 string `json:"error,omitempty"`
+	GetCanBeCommitted bool `json:"getCanBeCommitted"`
+	ResultCode 		  string `json:"resultCode"`
+	TransactionID	string `json:"transactionId"`
+	CommitDate 		string `json:"commit_date"`
+	FinalAmount		float64 `json:"finalAmount"`
+	Currency		string `json:"currency"`
+	Commission		float64 `json:"commission"`
+	Refundable		bool `json:"refundable"`
+	Refunded 		float64 `json:"refunded"`
+	HasSplit		bool `json:"hasSplit"`
+	Status			string `json:"status"`
+	CreatedAt		string `json:"createDate"`
 }
 
 /**PayZeResponse PayZe general response structure*/
