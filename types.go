@@ -10,6 +10,12 @@ type Callbacks struct {
 	CallbackFail string `json:"callbackError,omitempty"`
 }
 
+type PaymentInformation struct {
+	Image string `json:"image"`
+	Name string `json:"name"`
+	Description string `json:"description"`
+}
+
 /**PayZeRequest PayZe general request structure*/
 type PayZeRequest struct {
 	Method    string      `json:"method"`
@@ -23,6 +29,7 @@ type PayRequestData struct {
 	Amount       float64 `json:"amount,string"`
 	Currency     string  `json:"currency"`
 	Preauthorize bool    `json:"preauthorize,omitempty"`
+	Info 	PaymentInformation `json:"info"`
 	Callbacks
 }
 
