@@ -7,12 +7,12 @@ import (
 
 type Callbacks struct {
 	CallbackSuccess string `json:"callback,omitempty"`
-	CallbackFail string `json:"callbackError,omitempty"`
+	CallbackFail    string `json:"callbackError,omitempty"`
 }
 
 type PaymentInformation struct {
-	Image string `json:"image"`
-	Name string `json:"name"`
+	Image       string `json:"image"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
@@ -26,10 +26,23 @@ type PayZeRequest struct {
 
 /**PayRequestData Data part of PayZe general requests*/
 type PayRequestData struct {
-	Amount       float64 `json:"amount,string"`
-	Currency     string  `json:"currency"`
-	Preauthorize bool    `json:"preauthorize,omitempty"`
-	Info 	PaymentInformation `json:"info"`
+	Amount       float64            `json:"amount,string"`
+	Currency     string             `json:"currency"`
+	Preauthorize bool               `json:"preauthorize,omitempty"`
+	Info         PaymentInformation `json:"info"`
+	Callbacks
+}
+
+type SubscriptionRequestData struct {
+	IntervalType string             `json:"intervalType"`
+	Interval     uint               `json:"interval"`
+	Name         string             `json:"name"`
+	Channel      string             `json:"channel"`
+	Description  string             `json:"description"`
+	SendTo       string             `json:"sendTo"`
+	Amount       float64            `json:"amount"`
+	Currency     string             `json:"currency"`
+	Info         PaymentInformation `json:"info"`
 	Callbacks
 }
 
@@ -51,20 +64,21 @@ type SplitParticipant struct {
 type SplitInfo struct {
 	IBan   string  `json:"iban"`
 	Amount float64 `json:"amount,string"`
-	Status string 	`json:"status,omitempty"`
+	Status string  `json:"status,omitempty"`
 	//CashOutOrder string `json:"cashOutOrder,omitempty"`
 }
 
 /**LogEntry is an entry of logs array returned during action: GetTransactionInfo*/
 type LogEntry struct {
-	Date string `json:"date"`//TODO for future parse dates
+	Date         string `json:"date"` //TODO for future parse dates
 	StatusBefore string `json:"statusBefore"`
-	Status string `json:"status"`
-	ChangeType string `json:"changeType"`
+	Status       string `json:"status"`
+	ChangeType   string `json:"changeType"`
 }
 
 /**ResponseField response part of PayZe general requests*/
 type ResponseField struct {
+	SubscriptionID string `json:"subscriptionId,omitempty"`
 	CardID         string `json:"cardId,omitempty"`
 	TransactionUrl string `json:"transactionUrl,omitempty"`
 	TransactionID  string `json:"transactionId,omitempty"`
@@ -72,23 +86,23 @@ type ResponseField struct {
 
 /**ResponseField response part of PayZe general requests*/
 type TransactionResponseField struct {
-	CardMask         string `json:"cardMask,omitempty"`
-	Amount			 float64 `json:"amount,omitempty"`
-	Splits			 []SplitInfo `json:"splits,omitempty"`
-	Log  			 []LogEntry `json:"log,omitempty"`
-	Err 			 string `json:"error,omitempty"`
-	GetCanBeCommitted bool `json:"getCanBeCommitted"`
-	ResultCode 		  string `json:"resultCode"`
-	TransactionID	string `json:"transactionId"`
-	CommitDate 		string `json:"commit_date"`
-	FinalAmount		float64 `json:"finalAmount"`
-	Currency		string `json:"currency"`
-	Commission		float64 `json:"commission"`
-	Refundable		bool `json:"refundable"`
-	Refunded 		float64 `json:"refunded"`
-	HasSplit		bool `json:"hasSplit"`
-	Status			string `json:"status"`
-	CreatedAt		string `json:"createDate"`
+	CardMask          string      `json:"cardMask,omitempty"`
+	Amount            float64     `json:"amount,omitempty"`
+	Splits            []SplitInfo `json:"splits,omitempty"`
+	Log               []LogEntry  `json:"log,omitempty"`
+	Err               string      `json:"error,omitempty"`
+	GetCanBeCommitted bool        `json:"getCanBeCommitted"`
+	ResultCode        string      `json:"resultCode"`
+	TransactionID     string      `json:"transactionId"`
+	CommitDate        string      `json:"commit_date"`
+	FinalAmount       float64     `json:"finalAmount"`
+	Currency          string      `json:"currency"`
+	Commission        float64     `json:"commission"`
+	Refundable        bool        `json:"refundable"`
+	Refunded          float64     `json:"refunded"`
+	HasSplit          bool        `json:"hasSplit"`
+	Status            string      `json:"status"`
+	CreatedAt         string      `json:"createDate"`
 }
 
 /**PayZeResponse PayZe general response structure*/
@@ -102,10 +116,10 @@ type PayZeResponse struct {
 
 /**PayZeTransactionInfoResponse PayZe response structure of transaction info*/
 type PayZeTransactionInfoResponse struct {
-	ID        int64         `json:"id"`
-	Status    string        `json:"status"`
-	Action    string        `json:"action"`
-	CreatedAt string        `json:"createdDate"`
+	ID        int64                    `json:"id"`
+	Status    string                   `json:"status"`
+	Action    string                   `json:"action"`
+	CreatedAt string                   `json:"createdDate"`
 	Response  TransactionResponseField `json:"response"`
 }
 

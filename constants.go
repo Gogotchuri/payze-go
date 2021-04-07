@@ -17,23 +17,36 @@ const (
 	Refund              = "refund"
 	Balance             = "getBalance"
 	CommitTransaction   = "commit"
+	CreateSubscription  = "subscription"
 )
 
 //Transaction Statuses
 const (
-	TransactionBlocked = "Blocked"
-	TransactionCardAdded = "CardAdded"
+	TransactionBlocked                  = "Blocked"
+	TransactionCardAdded                = "CardAdded"
 	TransactionCardAddedForSubscription = "CardAddedForSubscription"
-	TransactionCommitFailed = "CommitFailed"
-	TransactionCommitted = "Committed"
-	TransactionCreated = "Created"
-	TransactionNothing = "Nothing"
-	TransactionError = "Error"
-	TransactionPlatformReceived = "PlatformReceived"
-	TransactionRefunded = "Refunded"
-	TransactionRefundedPartially = "RefundedPartially"
-	TransactionRejected = "Rejected"
-	TransactionTimeout= "Timeout"
+	TransactionCommitFailed             = "CommitFailed"
+	TransactionCommitted                = "Committed"
+	TransactionCreated                  = "Created"
+	TransactionNothing                  = "Nothing"
+	TransactionError                    = "Error"
+	TransactionPlatformReceived         = "PlatformReceived"
+	TransactionRefunded                 = "Refunded"
+	TransactionRefundedPartially        = "RefundedPartially"
+	TransactionRejected                 = "Rejected"
+	TransactionTimeout                  = "Timeout"
+)
+
+const (
+	SubscriptionIntervalTypeMonth = "Month"
+	SubscriptionIntervalTypeDay   = "Day"
+	SubscriptionIntervalTypeWeek  = "Week"
+	SubscriptionIntervalTypeYear  = "Year"
+)
+
+const (
+	ChannelEmail = "EMAIL"
+	ChannelSMS   = "SMS"
 )
 
 //Currencies

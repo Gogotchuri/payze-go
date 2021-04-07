@@ -76,6 +76,7 @@ func (c *Client) Send(req *http.Request, v interface{}) error {
 		errResp := &ErrorResponse{Response: resp, Data: data}
 		if err == nil && len(data) > 0 {
 			err = json.Unmarshal(data, errResp)
+			fmt.Println(err)
 		}
 		return errResp
 	}
