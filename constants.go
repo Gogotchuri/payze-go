@@ -38,6 +38,12 @@ const (
 )
 
 const (
+	SubscriptionCreated = "Created"
+	SubscriptionStarted = "Started"
+	SubscriptionCancelled = "Cancelled"
+)
+
+const (
 	SubscriptionIntervalTypeMonth = "Month"
 	SubscriptionIntervalTypeDay   = "Day"
 	SubscriptionIntervalTypeWeek  = "Week"

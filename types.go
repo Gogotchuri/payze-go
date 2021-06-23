@@ -76,6 +76,24 @@ type LogEntry struct {
 	ChangeType   string `json:"changeType"`
 }
 
+/**PayZeSubscriptionResponse PayZe subscription status response structure*/
+type PayZeSubscriptionResponse struct {
+	ID        int64         `json:"id"`
+	Status    string        `json:"status"`
+	Action    string        `json:"action"`
+	CreatedAt string        `json:"createdDate"`
+	Response  SubscriptionResponseField `json:"response"`
+}
+
+/**SubscriptionResponseField response part of PayZe general requests*/
+type SubscriptionResponseField struct {
+	ID string `json:"id,omitempty"`
+	CreatedAt string `json:"created_at,omitempty"`
+	IsActive         bool `json:"isActive,omitempty"`
+	CardToken string `json:"cardToken,omitempty"`
+	Status  string `json:"status,omitempty"`
+	Error  string `json:"error,omitempty"`
+}
 /**ResponseField response part of PayZe general requests*/
 type ResponseField struct {
 	SubscriptionID string `json:"subscriptionId,omitempty"`

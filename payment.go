@@ -26,6 +26,41 @@ func (c *Client) CreateSubscription(subData SubscriptionRequestData) (*PayZeResp
 	return resp, nil
 }
 
+func (c *Client) SubscriptionStatus(subscriptionID string) (*PayZeSubscriptionResponse, error) {
+	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase, 
+		c.CreateRequestPayload(CreateSubscription, 
+			struct {
+				SubscriptionID string `json:"subscriptionId"`
+			} { SubscriptionID : subscriptionID },
+		))
+	if err != nil {
+		return nil, err
+	}
+	resp := &PayZeSubscriptionResponse{}
+	err = c.Send(req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+func (c *Client) CancelSubscription(subscriptionID string) (*PayZeSubscriptionResponse, error) {
+	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase,
+		c.CreateRequestPayload(CreateSubscription,
+			struct {
+				SubscriptionID string `json:"subscriptionId"`
+			} { SubscriptionID : subscriptionID },
+		))
+	if err != nil {
+		return nil, err
+	}
+	resp := &PayZeSubscriptionResponse{}
+	err = c.Send(req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (c *Client) JustPayAndSplit(amount float64, commitNow bool, currency string, split []SplitParticipant) error {
 	panic("Not implemented")
 }
