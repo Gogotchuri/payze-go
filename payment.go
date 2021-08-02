@@ -27,11 +27,11 @@ func (c *Client) CreateSubscription(subData SubscriptionRequestData) (*PayZeResp
 }
 
 func (c *Client) SubscriptionStatus(subscriptionID string) (*PayZeSubscriptionResponse, error) {
-	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase, 
-		c.CreateRequestPayload(CreateSubscription, 
+	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase,
+		c.CreateRequestPayload(SubscriptionStatus,
 			struct {
 				SubscriptionID string `json:"subscriptionId"`
-			} { SubscriptionID : subscriptionID },
+			}{SubscriptionID: subscriptionID},
 		))
 	if err != nil {
 		return nil, err
@@ -45,10 +45,10 @@ func (c *Client) SubscriptionStatus(subscriptionID string) (*PayZeSubscriptionRe
 }
 func (c *Client) CancelSubscription(subscriptionID string) (*PayZeSubscriptionResponse, error) {
 	req, err := c.NewRequest(DefaultHTTPMethod, c.APIBase,
-		c.CreateRequestPayload(CreateSubscription,
+		c.CreateRequestPayload(CancelSubscription,
 			struct {
 				SubscriptionID string `json:"subscriptionId"`
-			} { SubscriptionID : subscriptionID },
+			}{SubscriptionID: subscriptionID},
 		))
 	if err != nil {
 		return nil, err

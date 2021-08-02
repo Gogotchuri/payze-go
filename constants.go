@@ -18,6 +18,8 @@ const (
 	Balance             = "getBalance"
 	CommitTransaction   = "commit"
 	CreateSubscription  = "subscription"
+	SubscriptionStatus  = "subscriptionStatus"
+	CancelSubscription  = "cancelSubscription"
 )
 
 //Transaction Statuses
@@ -38,8 +40,8 @@ const (
 )
 
 const (
-	SubscriptionCreated = "Created"
-	SubscriptionStarted = "Started"
+	SubscriptionCreated   = "Created"
+	SubscriptionStarted   = "Started"
 	SubscriptionCancelled = "Cancelled"
 )
 
