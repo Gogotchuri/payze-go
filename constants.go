@@ -42,6 +42,7 @@ const (
 const (
 	SubscriptionCreated   = "Created"
 	SubscriptionStarted   = "Started"
+	SubscriptionActive    = "Active"
 	SubscriptionCancelled = "Cancelled"
 )
 
